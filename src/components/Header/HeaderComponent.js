@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 
 const HeaderComponent = ({onDataChange}) => {
 
-    const [dataInicioValue, setDataInicio] = useState('');
-    const [dataFimValue, setDataFim] = useState('');
-    const [nomeOperadorValue, setNomeOperador] = useState('');
+    const [dataInicioValue, setDataInicio] = useState('')
+    const [dataFimValue, setDataFim] = useState('')
+    const [nomeOperadorValue, setNomeOperador] = useState('')
 
     const dataInicio = (event) =>{
         setDataInicio(event.target.value)
@@ -17,13 +17,11 @@ const HeaderComponent = ({onDataChange}) => {
 
     const nomeOperador = (event) => {
         setNomeOperador(event.target.value)
-    };
+    }
 
     const pesquisarClick = () => {
-        console.log(dataInicioValue)
-        console.log(dataFimValue)
-        console.log(nomeOperadorValue)
-    };
+        onDataChange({dataInicioValue, dataFimValue, nomeOperadorValue})
+    }
 
     return (
         <div className="header">
