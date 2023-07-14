@@ -1,18 +1,20 @@
 import './TableComponent.css'
-import '../Header/HeaderComponent'
 import HeaderComponent from '../Header/HeaderComponent'
 import React, { useState, useEffect } from 'react';
+import ConsumirApi from '../../services/ConsumirApi';
 
 const TableComponent = () => {
 
     const [filtros, setFiltros] = useState('')
-
+    
     useEffect(() => {
-      console.log(filtros);
+      ConsumirApi(filtros)
+      .then(response => response.json())
+      .then(data => console.log(data))
     }, [filtros])
   
     const filtrosPassados = (data) => {
-      setFiltros(data);
+      setFiltros(data)
     }
 
     return (
