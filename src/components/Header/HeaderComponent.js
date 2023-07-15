@@ -41,7 +41,7 @@ const HeaderComponent = ({ onDataChange }) => {
         <form className="header" onSubmit={pesquisarClick}>
             <div className='conta'>
                 <h3>Escolha uma conta</h3>
-                <select className='select-conta' defaultValue="" onChange={conta}>
+                <select required className='select-conta' defaultValue="" onChange={conta}>
                     <option value="" disabled hidden>Selecione uma opção</option>
                     {contas.map(item => (
                         <option value={item['idConta']} key={item['idConta']}>{item['idConta']} - {item['nomeResponsavel']}</option>

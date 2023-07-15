@@ -4,7 +4,6 @@ const ConsumirApi = (filtros) => {
     const PARAMS = ['id-conta=', 'nome-operador=', 'data-inicio=', 'data-fim=', 'page=']
 
     if (filtros['dataInicioValue'] && filtros['dataFimValue'] && filtros['nomeOperadorValue']) {
-        console.log(filtros)
         return fetch(`${BASE_URL + URLS[3] + PARAMS[0] + filtros['contaValue'] +'&' + PARAMS[1] + filtros['nomeOperadorValue'] + '&' + PARAMS[2] + 
         filtros['dataInicioValue'] + '&' + PARAMS[3] + filtros['dataFimValue'] + '&' + PARAMS[4] + '0'}`, {
             method: "GET"

@@ -6,14 +6,29 @@ import ConsumirApi from '../../services/ConsumirApi';
 const TableComponent = () => {
 
     const [filtros, setFiltros] = useState('')
+    const [transferencias, setTransferencias] = useState([])
 
-    useEffect(() => {
-        if(filtros){
-            ConsumirApi(filtros)
-            .then(response => response.json())
-            .then(data => console.log(data))
+    const formataSaldo = (saldo) => {
+        if (saldo) {
+            return saldo.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+        } else {
+            return 'R$00,00'
         }
-    }, [filtros])
+    }
+
+    const formataData = (data) => {
+        const dia = data.slice(0, 4);
+        const mes = data.slice(5, 7);
+        const ano = data.slice(8, 10);
+        return `${ano}/${mes}/${dia}`;
+    }
+    useEffect(() => {
+        if (filtros) {
+            ConsumirApi(filtros)
+                .then(response => response.json())
+                .then(data => setTransferencias(data.content))
+        }
+    }, [filtros, setTransferencias])
 
     const filtrosPassados = (data) => {
         setFiltros(data)
@@ -25,10 +40,10 @@ const TableComponent = () => {
             <div className="table-content">
                 <div className="saldo-infos">
                     <div className="lbl-saldo">
-                        <label>Saldo total: R$1200,00</label>
+                        <label>Saldo total: {formataSaldo(transferencias[0]?.conta.saldoTotal)}</label>
                     </div>
                     <div className="lbl-saldo">
-                        <label>Saldo no período: R$550,00</label>
+                        <label>Saldo no período: {formataSaldo(transferencias[0]?.conta.saldoPeriodo)}</label>
                     </div>
                 </div>
                 <div className="tabela">
@@ -40,30 +55,14 @@ const TableComponent = () => {
                                 <th>Tipo</th>
                                 <th>Nome do operador transacionado</th>
                             </tr>
-                            <tr>
-                                <td>10/10/2020</td>
-                                <td>R$ 200,00</td>
-                                <td>Saque</td>
-                                <td>Beltrano</td>
-                            </tr>
-                            <tr>
-                                <td>10/10/2020</td>
-                                <td>R$ 200,00</td>
-                                <td>Saque</td>
-                                <td>Beltrano</td>
-                            </tr>
-                            <tr>
-                                <td>10/10/2020</td>
-                                <td>R$ 200,00</td>
-                                <td>Saque</td>
-                                <td>Beltrano</td>
-                            </tr>
-                            <tr>
-                                <td>10/10/2020</td>
-                                <td>R$ 200,00</td>
-                                <td>Saque</td>
-                                <td>Beltrano</td>
-                            </tr>
+                            {transferencias.map(transferencia => (
+                                <tr key={transferencia['id']}>
+                                    <td>{formataData(transferencia['dataTransferencia'])}</td>
+                                    <td>{formataSaldo(transferencia['valor'])}</td>
+                                    <td>{transferencia['tipo']}</td>
+                                    <td>{transferencia['nomeOperadorTransacao']}</td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>
