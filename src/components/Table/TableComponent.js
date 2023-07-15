@@ -6,20 +6,22 @@ import ConsumirApi from '../../services/ConsumirApi';
 const TableComponent = () => {
 
     const [filtros, setFiltros] = useState('')
-    
+
     useEffect(() => {
-      ConsumirApi(filtros)
-      .then(response => response.json())
-      .then(data => console.log(data))
+        if(filtros){
+            ConsumirApi(filtros)
+            .then(response => response.json())
+            .then(data => console.log(data))
+        }
     }, [filtros])
-  
+
     const filtrosPassados = (data) => {
-      setFiltros(data)
+        setFiltros(data)
     }
 
     return (
         <>
-            <HeaderComponent onDataChange={filtrosPassados}/>
+            <HeaderComponent onDataChange={filtrosPassados} />
             <div className="table-content">
                 <div className="saldo-infos">
                     <div className="lbl-saldo">

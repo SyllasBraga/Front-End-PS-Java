@@ -7,6 +7,24 @@
     justify-content: center;
 }
 
+.conta{
+    height: 60%;
+    width: 100%;
+}
+
+.select-conta{
+    width: 30%;
+    height: 30px;
+    text-align: center;
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: 1px 1px black;
+    color: #333;
+    font-size: 16px;
+    text-decoration: none;
+}
+
 .date-inputs{
     height: 60%;
     width: 100%;

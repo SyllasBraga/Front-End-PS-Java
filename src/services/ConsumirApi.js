@@ -5,20 +5,20 @@ const ConsumirApi = (filtros) => {
 
     if (filtros['dataInicioValue'] && filtros['dataFimValue'] && filtros['nomeOperadorValue']) {
         console.log(filtros)
-        return fetch(`${BASE_URL + URLS[3] + PARAMS[0] + '1&' + PARAMS[1] + filtros['nomeOperadorValue'] + '&' + PARAMS[2] + 
+        return fetch(`${BASE_URL + URLS[3] + PARAMS[0] + filtros['contaValue'] +'&' + PARAMS[1] + filtros['nomeOperadorValue'] + '&' + PARAMS[2] + 
         filtros['dataInicioValue'] + '&' + PARAMS[3] + filtros['dataFimValue'] + '&' + PARAMS[4] + '0'}`, {
             method: "GET"
         })
     } else if(filtros['nomeOperadorValue']){
-        return fetch(`${BASE_URL + URLS[1] + PARAMS[0] + '1&' + PARAMS[1] + filtros['nomeOperadorValue'] + '&' + PARAMS[4] + '0'}`, {
+        return fetch(`${BASE_URL + URLS[1] + PARAMS[0] + filtros['contaValue'] +'&' + PARAMS[1] + filtros['nomeOperadorValue'] + '&' + PARAMS[4] + '0'}`, {
             method: "GET"
         })
     } else if(filtros['dataInicioValue'] && filtros['dataFimValue']) {
-        return fetch(`${BASE_URL + URLS[2] + PARAMS[0] + '1&' + PARAMS[2] + filtros['dataInicioValue'] + '&' + PARAMS[3] + filtros['dataFimValue'] + '&' + PARAMS[4] + '0'}`, {
+        return fetch(`${BASE_URL + URLS[2] + PARAMS[0] + filtros['contaValue'] +'&' + PARAMS[2] + filtros['dataInicioValue'] + '&' + PARAMS[3] + filtros['dataFimValue'] + '&' + PARAMS[4] + '0'}`, {
             method: "GET"
         })
     } else{
-        return fetch(`${BASE_URL + URLS[0] + PARAMS[0] + '1&' + PARAMS[4] + '0'}`, {
+        return fetch(`${BASE_URL + URLS[0] + PARAMS[0] + filtros['contaValue'] +'&' + PARAMS[4] + '0'}`, {
             method: "GET"
         })
     }

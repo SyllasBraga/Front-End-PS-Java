@@ -1,17 +1,26 @@
 import './HeaderComponent.css'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import ConsumirContaApi from '../../services/ConsumirContaApi';
 
-const HeaderComponent = ({onDataChange}) => {
+const HeaderComponent = ({ onDataChange }) => {
 
     const [dataInicioValue, setDataInicio] = useState('')
     const [dataFimValue, setDataFim] = useState('')
     const [nomeOperadorValue, setNomeOperador] = useState('')
+    const [contaValue, setConta] = useState('')
+    const [contas, setContas] = useState([]);
 
-    const dataInicio = (event) =>{
+    useEffect(() => {
+        ConsumirContaApi()
+            .then(response => response.json())
+            .then(data => setContas(data))
+    }, [])
+
+    const dataInicio = (event) => {
         setDataInicio(event.target.value)
     }
 
-    const dataFim = (event) =>{
+    const dataFim = (event) => {
         setDataFim(event.target.value)
     }
 
@@ -19,30 +28,44 @@ const HeaderComponent = ({onDataChange}) => {
         setNomeOperador(event.target.value)
     }
 
-    const pesquisarClick = () => {
-        onDataChange({dataInicioValue, dataFimValue, nomeOperadorValue})
+    const conta = (event) =>{
+        setConta(event.target.value)
+    }
+
+    const pesquisarClick = (event) => {
+        event.preventDefault();
+        onDataChange({ dataInicioValue, dataFimValue, nomeOperadorValue, contaValue })
     }
 
     return (
-        <div className="header">
+        <form className="header" onSubmit={pesquisarClick}>
+            <div className='conta'>
+                <h3>Escolha uma conta</h3>
+                <select className='select-conta' defaultValue="" onChange={conta}>
+                    <option value="" disabled hidden>Selecione uma opção</option>
+                    {contas.map(item => (
+                        <option value={item['idConta']} key={item['idConta']}>{item['idConta']} - {item['nomeResponsavel']}</option>
+                    ))}
+                </select>
+            </div>
             <div className="date-inputs">
                 <span>
                     <h3>Data de início</h3>
-                    <input type="date" className='input' onChange={dataInicio}/>
+                    <input type="date" className='input' onChange={dataInicio} />
                 </span>
                 <span>
                     <h3>Data de Fim</h3>
-                    <input type="date" className='input' onChange={dataFim}/>
+                    <input type="date" className='input' onChange={dataFim} />
                 </span>
                 <span>
                     <h3>Nome do operador transacionado</h3>
-                    <input type="text" placeholder="Insira um nome" className="input" onChange={nomeOperador}/>
+                    <input type="text" placeholder="Insira um nome" className="input" onChange={nomeOperador} />
                 </span>
             </div>
             <div className="pesquisar">
-                <button onClick={pesquisarClick}>Pesquisar</button>
+                <button type='submit'>Pesquisar</button>
             </div>
-        </div>
+        </form>
     );
 };
 
