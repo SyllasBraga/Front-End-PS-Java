@@ -59,7 +59,7 @@ const TableComponent = () => {
                                 <tr key={transferencia['id']}>
                                     <td>{formataData(transferencia['dataTransferencia'])}</td>
                                     <td>{formataSaldo(transferencia['valor'])}</td>
-                                    <td>{transferencia['tipo']}</td>
+                                    <td className='tipoTransferencia'>{transferencia['tipo']}</td>
                                     <td>{transferencia['nomeOperadorTransacao']}</td>
                                 </tr>
                             ))}
