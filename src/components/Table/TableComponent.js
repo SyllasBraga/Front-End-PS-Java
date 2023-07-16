@@ -1,5 +1,6 @@
 import './TableComponent.css'
 import HeaderComponent from '../Header/HeaderComponent'
+import PaginationComponent from '../Pagination/PaginationComponent';
 import React, { useState, useEffect } from 'react';
 import ConsumirApi from '../../services/ConsumirApi';
 
@@ -67,6 +68,7 @@ const TableComponent = () => {
                     </table>
                 </div>
             </div>
+            <PaginationComponent />
         </>
     );
 };
