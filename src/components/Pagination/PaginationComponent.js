@@ -1,6 +1,6 @@
 import './PaginationComponent.css'
 
-const PaginationComponent = ( {totalPages, onPageChange }) => {
+const PaginationComponent = ( {totalPages, onPageChange, pageAtual }) => {
 
     const gerarPaginaççao = () => {
         const pages = []
@@ -8,6 +8,7 @@ const PaginationComponent = ( {totalPages, onPageChange }) => {
             pages.push(
                 <span
                     key={i}
+                    className={i === (pageAtual+1)? 'active' :''}
                     onClick={() => onPageChange(i - 1)}
                 >
                     {i}

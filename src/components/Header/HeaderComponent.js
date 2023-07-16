@@ -14,6 +14,7 @@ const HeaderComponent = ({ onDataChange }) => {
         ConsumirContaApi()
             .then(response => response.json())
             .then(data => setContas(data))
+            .finally()
     }, [])
 
     const dataInicio = (event) => {

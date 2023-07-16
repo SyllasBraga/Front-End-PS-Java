@@ -33,7 +33,8 @@ const TableComponent = () => {
                 .then(data => {
                     setPage(data)
                     setTransferencias(data.content)
-                }).finally()
+                })
+                .finally()
         }
     }, [filtros, pageAtual])
 
@@ -44,7 +45,8 @@ const TableComponent = () => {
                 setPage(data);
                 setTransferencias(data.content)
                 setPageAtual(data.number)
-            }).finally()
+            })
+            .finally()
     };
 
     const filtrosPassados = (data) => {
@@ -88,6 +90,7 @@ const TableComponent = () => {
             <PaginationComponent
                 onPageChange={alterarPagina}
                 totalPages={page.totalPages}
+                pageAtual={pageAtual}
             />
         </>
     );
