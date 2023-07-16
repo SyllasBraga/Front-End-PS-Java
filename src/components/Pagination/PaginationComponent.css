@@ -13,12 +13,7 @@
     text-decoration: none;
 }
 
-.pagination span.active {
-    background-color: #f7f0f0;
-    color: black;
-}
-
-.pagination span:hover:not(.active) {
+.pagination span:hover {
     background-color: #ddd;
     color: black;
     cursor: pointer;

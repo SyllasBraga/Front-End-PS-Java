@@ -1,15 +1,23 @@
 import './PaginationComponent.css'
 
-const PaginationComponent = ({ onDataChange }) => {
-    return (
-        <div class="pagination">
-            <span class="active">1</span>
-            <span>2</span>
-            <span>3</span>
-            <span>4</span>
-            <span>5</span>
-        </div>
-    );
+const PaginationComponent = ( {totalPages, onPageChange }) => {
+
+    const gerarPaginaççao = () => {
+        const pages = []
+        for (let i = 1; i <= totalPages; i++) {
+            pages.push(
+                <span
+                    key={i}
+                    onClick={() => onPageChange(i - 1)}
+                >
+                    {i}
+                </span>
+            )
+        }
+        return pages
+    }
+
+    return <div className="pagination">{gerarPaginaççao()}</div>
 };
 
 export default PaginationComponent;

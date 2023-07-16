@@ -8,6 +8,8 @@ const TableComponent = () => {
 
     const [filtros, setFiltros] = useState('')
     const [transferencias, setTransferencias] = useState([])
+    const [page, setPage] = useState('')
+    const [pageAtual, setPageAtual] = useState(0)
 
     const formataSaldo = (saldo) => {
         if (saldo) {
@@ -23,16 +25,31 @@ const TableComponent = () => {
         const ano = data.slice(8, 10);
         return `${ano}/${mes}/${dia}`;
     }
+
     useEffect(() => {
         if (filtros) {
-            ConsumirApi(filtros)
+            ConsumirApi(filtros, pageAtual)
                 .then(response => response.json())
-                .then(data => setTransferencias(data.content))
+                .then(data => {
+                    setPage(data)
+                    setTransferencias(data.content)
+                }).finally()
         }
-    }, [filtros, setTransferencias])
+    }, [filtros, pageAtual])
+
+    const alterarPagina = (data) => {
+        ConsumirApi(filtros, data)
+            .then((response) => response.json())
+            .then((data) => {
+                setPage(data);
+                setTransferencias(data.content)
+                setPageAtual(data.number)
+            }).finally()
+    };
 
     const filtrosPassados = (data) => {
         setFiltros(data)
+        setPageAtual(0)
     }
 
     return (
@@ -68,7 +85,10 @@ const TableComponent = () => {
                     </table>
                 </div>
             </div>
-            <PaginationComponent />
+            <PaginationComponent
+                onPageChange={alterarPagina}
+                totalPages={page.totalPages}
+            />
         </>
     );
 };
